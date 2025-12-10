@@ -1,13 +1,18 @@
 from pyprompts._prompt import prompt
 
-def confirmation_prompt(prompt_text: str, affirmative_response: str = "Y", negative_response: str = "N") -> bool:
+affirmative_responses = ("y", "yes")
+affirmative_response = "(Y)es"
+negative_responses = ("n", "no")
+negative_response = "(N)o"
+
+def confirmation_prompt(prompt_text: str) -> bool:
     invalid_message = f'The user input was not a valid option. Please select either {affirmative_response} or {negative_response}.'
 
     def is_affirmative(response: str) -> bool:
-        return affirmative_response.lower() == response.lower()
+        return response.strip().lower() in affirmative_responses
 
     def is_negative(response: str) -> bool:
-        return negative_response.lower() == response.lower()
+        return negative_responses.lower() == response.lower()
 
     def validity_check(response: str) -> bool:
         return is_affirmative(response) or is_negative(response)
