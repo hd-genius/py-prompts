@@ -7,9 +7,13 @@ name = "pypi"
 
 [dev-packages]
 parameterized = "==0.9"
+autopep8 = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.13"
 
 [scripts]
 test = "python -m unittest tests"
+lint = "pylint ."
+check-format = "pipenv run autopep8 --diff --recursive ."
