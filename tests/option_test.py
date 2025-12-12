@@ -6,6 +6,16 @@ from parameterized import parameterized
 from pyprompts import options_prompt, PromptOption
 
 class OptionsPromptTestCase(unittest.TestCase):
+    def test_prompt_is_shown(self):
+        with patch('builtins.input', return_value="1") as mock_input:
+            prompt_text = 'Example options prompt'
+            options_prompt(prompt_text, PromptOption('first', 'first value'), PromptOption('second', 'second value'))
+            mock_input.assert_called_with(
+                'Example options prompt\n' +
+                '1: first\n' +
+                '2: second\n'
+            )
+
     @parameterized.expand([
         ['1', 'first value'],
         [' 1 ', 'first value'],
@@ -38,3 +48,6 @@ class OptionsPromptTestCase(unittest.TestCase):
             with patch('builtins.print') as mock_print:
                 options_prompt('Select a value', PromptOption('first', 'first value'), PromptOption('second', 'second value'))
                 mock_print.assert_called_with('Please select an option between 1 and 2.')
+
+if __name__ == '__main__':
+    unittest.main()
