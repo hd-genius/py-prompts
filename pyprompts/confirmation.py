@@ -5,14 +5,18 @@ _affirmative_response = "(Y)es"
 _negative_responses = ("n", "no")
 _negative_response = "(N)o"
 
+
 def _is_affirmative(response: str) -> bool:
     return response.strip().lower() in _affirmative_responses
+
 
 def _is_negative(response: str) -> bool:
     return response.strip().lower() in _negative_responses
 
+
 def _check_input_validity(response: str) -> bool:
     return _is_affirmative(response) or _is_negative(response)
+
 
 def confirmation_prompt(prompt_text: str) -> bool:
     """Presents a prompt to the user that ask for an affirmative (yes) or negative (no) response.

@@ -5,11 +5,13 @@ from parameterized import parameterized
 
 from pyprompts import options_prompt, PromptOption
 
+
 class OptionsPromptTestCase(unittest.TestCase):
     def test_prompt_is_shown(self):
         with patch('builtins.input', return_value="1") as mock_input:
             prompt_text = 'Example options prompt'
-            options_prompt(prompt_text, PromptOption('first', 'first value'), PromptOption('second', 'second value'))
+            options_prompt(prompt_text, PromptOption(
+                'first', 'first value'), PromptOption('second', 'second value'))
             mock_input.assert_called_with(
                 'Example options prompt\n' +
                 '1: first\n' +
@@ -24,7 +26,8 @@ class OptionsPromptTestCase(unittest.TestCase):
     ])
     def test_input_gives_expected_value(self, user_input, expected_result):
         with patch('builtins.input', return_value=user_input):
-            result = options_prompt('Select a value', PromptOption('first', 'first value'), PromptOption('second', 'second value'))
+            result = options_prompt('Select a value', PromptOption(
+                'first', 'first value'), PromptOption('second', 'second value'))
             self.assertEqual(result, expected_result)
 
     @parameterized.expand([
@@ -34,20 +37,27 @@ class OptionsPromptTestCase(unittest.TestCase):
     def test_input_before_beginning(self, user_input):
         with patch('builtins.input', side_effect=[user_input, 1]):
             with patch('builtins.print') as mock_print:
-                options_prompt('Select a value', PromptOption('first', 'first value'), PromptOption('second', 'second value'))
-                mock_print.assert_called_with('Please select an option between 1 and 2.')
+                options_prompt('Select a value', PromptOption(
+                    'first', 'first value'), PromptOption('second', 'second value'))
+                mock_print.assert_called_with(
+                    'Please select an option between 1 and 2.')
 
     def test_input_beyond_end(self):
         with patch('builtins.input', side_effect=['3', 1]):
             with patch('builtins.print') as mock_print:
-                options_prompt('Select a value', PromptOption('first', 'first value'), PromptOption('second', 'second value'))
-                mock_print.assert_called_with('Please select an option between 1 and 2.')
+                options_prompt('Select a value', PromptOption(
+                    'first', 'first value'), PromptOption('second', 'second value'))
+                mock_print.assert_called_with(
+                    'Please select an option between 1 and 2.')
 
     def test_input_not_number(self):
         with patch('builtins.input', side_effect=['other', 1]):
             with patch('builtins.print') as mock_print:
-                options_prompt('Select a value', PromptOption('first', 'first value'), PromptOption('second', 'second value'))
-                mock_print.assert_called_with('Please select an option between 1 and 2.')
+                options_prompt('Select a value', PromptOption(
+                    'first', 'first value'), PromptOption('second', 'second value'))
+                mock_print.assert_called_with(
+                    'Please select an option between 1 and 2.')
+
 
 if __name__ == '__main__':
     unittest.main()

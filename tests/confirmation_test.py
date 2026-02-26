@@ -2,7 +2,9 @@ import unittest
 from unittest.mock import patch
 
 from parameterized import parameterized
+
 from pyprompts import confirmation_prompt
+
 
 class ConfirmationPromptTestCase(unittest.TestCase):
     def test_prompt_is_shown(self):
@@ -44,7 +46,7 @@ class ConfirmationPromptTestCase(unittest.TestCase):
         with patch('builtins.input', return_value=user_input):
             result = confirmation_prompt('Example confirmation prompt')
             self.assertFalse(result)
-    
+
     @parameterized.expand([
         ['on'],
         ['es'],
@@ -60,6 +62,7 @@ class ConfirmationPromptTestCase(unittest.TestCase):
                 prompt_text = 'Example confirmation prompt'
                 confirmation_prompt(prompt_text)
                 mock_print.assert_called_with(expected_error_message)
+
 
 if __name__ == '__main__':
     unittest.main()

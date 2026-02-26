@@ -5,6 +5,7 @@ from parameterized import parameterized
 
 from pyprompts import integer_prompt
 
+
 class IntegerPromptTestCase(unittest.TestCase):
     def test_prompt_is_shown(self):
         with patch('builtins.input', return_value="1") as mock_input:
@@ -33,7 +34,9 @@ class IntegerPromptTestCase(unittest.TestCase):
         with patch('builtins.input', side_effect=(user_input, "1")):
             with patch('builtins.print') as mock_print:
                 integer_prompt('Example integer prompt')
-                mock_print.assert_called_with('The value is not a valid integer. Please enter an integer.')
+                mock_print.assert_called_with(
+                    'The value is not a valid integer. Please enter an integer.')
+
 
 if __name__ == '__main__':
     unittest.main()
