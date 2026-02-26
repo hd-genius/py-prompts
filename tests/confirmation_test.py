@@ -56,7 +56,8 @@ class ConfirmationPromptTestCase(unittest.TestCase):
         ['']
     ])
     def test_invalid_response(self, user_input):
-        expected_error_message = 'The user input was not a valid option. Please select either (Y)es or (N)o.'
+        expected_error_message = ('The user input was not a valid option.'
+                                  ' Please select either (Y)es or (N)o.')
         with patch('builtins.input', side_effect=(user_input, "yes")):
             with patch('builtins.print') as mock_print:
                 prompt_text = 'Example confirmation prompt'

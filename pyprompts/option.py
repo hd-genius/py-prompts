@@ -16,16 +16,19 @@ def options_prompt(prompt_text: str, *options: PromptOption):
         return int(value) - 1
 
     def is_valid_option(value: str):
-        if (not is_integer(value)):
+        if not is_integer(value):
             return False
         selected_option = index_of_selection(value)
-        return selected_option >= 0 and selected_option < len(options)
+        return 0 <= selected_option < len(options)
 
     def find_selected_value(value: str):
         selected_option = options[index_of_selection(value)]
         return selected_option.value
 
-    return prompt(presented_prompt, is_valid_option, f'Please select an option between 1 and {len(options)}.', find_selected_value)
+    return prompt(presented_prompt,
+                  is_valid_option,
+                  f'Please select an option between 1 and {len(options)}.',
+                  find_selected_value)
 
 
 def _format_option_text(option_number: int, description: str):

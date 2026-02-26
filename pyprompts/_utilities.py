@@ -2,5 +2,5 @@ def is_integer(value: str):
     try:
         int(value)
         return True
-    except:
+    except ValueError:
         return False
